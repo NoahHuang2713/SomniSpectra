@@ -1,0 +1,543 @@
+<!--
+  ============================================
+  SomniSpectra - Smart Sleep Technology
+  ============================================
+  
+  [How to Run]
+  Simply double-click index.html to open in browser.
+  
+  [How to Replace Images]
+  1. Place your images in the assets/ directory
+  2. Find the corresponding <img> tag in HTML
+  3. Change the src attribute to your image path, e.g.: src="assets/your-image.jpg"
+  4. Carousel images are in .carousel-slide img tags
+  5. Product images are in .product-card img tags
+  6. Team avatars are in .team-card img tags
+  
+  [How to Replace Video]
+  1. Place video file in assets/ directory and name it demo.mp4
+  2. Or modify the <video> tag src attribute to your video path
+  3. poster attribute is for video cover image
+  
+  [Notes]
+  - WebP format recommended for optimized loading
+  - MP4 format (H.264 encoding) recommended for video
+  - All placeholder images from picsum.photos / unsplash
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SomniSpectra - Multi-sensor intelligent sleep monitoring and improvement solutions">
+  <title>SomniSpectra | Smart Sleep Technology</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Preload critical images -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1920&q=80">
+</head>
+<body>
+  <!-- ========== Navigation ========== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo" aria-label="SomniSpectra Home">
+        <img src="assets/ss.webp" alt="SomniSpectra" class="logo-icon">
+        <span class="logo-text">SomniSpectra</span>
+      </a>
+      
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#product" class="nav-link">Product</a>
+        <a href="#team" class="nav-link">Team</a>
+        <a href="#charity" class="nav-link">Charity</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      
+      <a href="#contact" class="btn btn-primary nav-cta">Get Demo</a>
+      
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-nav-link">Home</a>
+    <a href="#product" class="mobile-nav-link">Product</a>
+    <a href="#team" class="mobile-nav-link">Team</a>
+    <a href="#charity" class="mobile-nav-link">Charity</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="#contact" class="btn btn-primary mobile-cta">Get Demo</a>
+  </nav>
+
+  <main>
+    <!-- ========== Hero Section with Carousel ========== -->
+    <section class="hero" id="home">
+      <div class="carousel" id="heroCarousel">
+        <div class="carousel-track">
+          <div class="carousel-slide active">
+            <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1920&q=80" alt="Smart Sleep Monitoring" class="carousel-image">
+            <div class="carousel-overlay"></div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=1920&q=80" alt="Technology Meets Comfort" class="carousel-image" loading="lazy">
+            <div class="carousel-overlay"></div>
+          </div>
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80" alt="Quality Sleep Experience" class="carousel-image" loading="lazy">
+            <div class="carousel-overlay"></div>
+          </div>
+        </div>
+        
+        <button class="carousel-btn carousel-prev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        <button class="carousel-btn carousel-next" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,6 15,12 9,18"></polyline>
+          </svg>
+        </button>
+        
+        <div class="carousel-dots">
+          <button class="carousel-dot active" aria-label="Slide 1"></button>
+          <button class="carousel-dot" aria-label="Slide 2"></button>
+          <button class="carousel-dot" aria-label="Slide 3"></button>
+        </div>
+      </div>
+      
+      <div class="hero-content">
+        <div class="hero-text animate-on-scroll">
+          <h1 class="hero-title">Redefining Sleep Health</h1>
+          <p class="hero-subtitle">Combining smart pillow, wristband, and EEG eye mask sensors with AI-powered deep analysis to create personalized sleep improvement solutions</p>
+          <div class="hero-buttons">
+            <a href="#product" class="btn btn-primary btn-large">Explore Products</a>
+            <a href="#contact" class="btn btn-secondary btn-large">Book a Demo</a>
+          </div>
+        </div>
+        <div class="hero-visual animate-on-scroll">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="SomniSpectra Device Collection" class="hero-device-image" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Product Section ========== -->
+    <section class="section product-section" id="product">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 class="section-title">Smart Product Suite</h2>
+          <p class="section-desc">A comprehensive sleep monitoring system that guards your every night</p>
+        </div>
+        
+        <div class="product-grid">
+          <!-- Product Card 1 -->
+          <article class="product-card animate-on-scroll" data-product="pillow">
+            <div class="product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800&q=80" alt="Smart Pillow" class="product-image" loading="lazy">
+              <div class="product-badge">Core</div>
+            </div>
+            <div class="product-content">
+              <div class="product-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="16" width="40" height="20" rx="10" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 26C14 22 18 20 24 20C30 20 34 22 36 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3 class="product-title">Smart Pillow</h3>
+              <ul class="product-features">
+                <li>Dual microphones for snoring and breathing-event evidence</li>
+                <li>Pressure matrix for posture and pressure-distribution tracking</li>
+                <li>IMU for turning detection and motion timing alignment</li>
+              </ul>
+              <button class="btn btn-outline product-btn">Learn More</button>
+            </div>
+          </article>
+          
+          <!-- Product Card 2 -->
+          <article class="product-card animate-on-scroll" data-product="wristband">
+            <div class="product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&q=80" alt="Wristband" class="product-image" loading="lazy">
+              <div class="product-badge new">Plus</div>
+            </div>
+            <div class="product-content">
+              <div class="product-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="14" y="4" width="20" height="40" rx="10" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/>
+                  <path d="M24 18V24L28 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3 class="product-title">Wristband</h3>
+              <ul class="product-features">
+                <li>Heart-rate monitoring for overnight cardiovascular trends</li>
+                <li>SpO₂ sensing to support respiration-related screening signals</li>
+                <li>IMU for activity context and artifact reduction</li>
+              </ul>
+              <button class="btn btn-outline product-btn">Learn More</button>
+            </div>
+          </article>
+          
+          <!-- Product Card 3 -->
+          <article class="product-card animate-on-scroll" data-product="eyemask">
+            <div class="product-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1519003300449-424ad0405076?w=800&q=80" alt="EEG Eye Mask" class="product-image" loading="lazy">
+              <div class="product-badge premium">Pro</div>
+            </div>
+            <div class="product-content">
+              <div class="product-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="24" cy="24" rx="20" ry="12" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="16" cy="24" r="4" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="32" cy="24" r="4" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 24H8M40 24H44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3 class="product-title">EEG Eye Mask</h3>
+              <ul class="product-features">
+                <li>EEG acquisition for objective neurophysiological evidence</li>
+                <li>Sleep-stage inference support for sleep architecture analysis</li>
+                <li>Complements peripheral signals for stronger interpretability</li>
+              </ul>
+              <button class="btn btn-outline product-btn">Learn More</button>
+            </div>
+          </article>
+        </div>
+        
+        <!-- Video Section -->
+        <div class="video-section animate-on-scroll">
+          <div class="video-wrapper">
+            <video 
+              class="product-video" 
+              controls 
+              poster="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=1280&q=80"
+              preload="metadata"
+            >
+              <source src="assets/demo.mp4" type="video/mp4">
+              Your browser does not support video playback. Please upgrade your browser.
+            </video>
+            <div class="video-overlay" id="videoOverlay">
+              <button class="video-play-btn" aria-label="Play video">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.9)"/>
+                  <polygon points="26,20 26,44 46,32" fill="var(--color-primary)"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="video-info">
+            <h3>Watch Product Demo</h3>
+            <p>Discover how SomniSpectra uses multi-sensor fusion technology to provide unprecedented sleep insights</p>
+          </div>
+        </div>
+        
+        <!-- AI Pipeline -->
+        <div class="pipeline-section animate-on-scroll">
+          <h3 class="pipeline-title">AI Data Processing Pipeline</h3>
+          <div class="pipeline">
+            <div class="pipeline-step">
+              <div class="pipeline-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <path d="M8 16H24M16 8V24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <span class="pipeline-label">Sync</span>
+              <span class="pipeline-desc">Multi-source Data Sync</span>
+            </div>
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <path d="M6 22L12 16L18 20L26 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6 10L12 16L18 12L26 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+                </svg>
+              </div>
+              <span class="pipeline-label">Denoise</span>
+              <span class="pipeline-desc">Intelligent Noise Reduction</span>
+            </div>
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect x="6" y="14" width="4" height="12" rx="1" fill="currentColor" opacity="0.5"/>
+                  <rect x="14" y="8" width="4" height="18" rx="1" fill="currentColor" opacity="0.7"/>
+                  <rect x="22" y="4" width="4" height="22" rx="1" fill="currentColor"/>
+                </svg>
+              </div>
+              <span class="pipeline-label">Feature</span>
+              <span class="pipeline-desc">Feature Extraction</span>
+            </div>
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="10" cy="14" r="3" fill="currentColor" opacity="0.5"/>
+                  <circle cx="22" cy="14" r="3" fill="currentColor" opacity="0.5"/>
+                  <circle cx="16" cy="22" r="3" fill="currentColor" opacity="0.5"/>
+                  <path d="M10 14L16 22L22 14L10 14" stroke="currentColor" stroke-width="1"/>
+                </svg>
+              </div>
+              <span class="pipeline-label">Fusion</span>
+              <span class="pipeline-desc">Multi-modal Fusion</span>
+            </div>
+            <div class="pipeline-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="pipeline-step">
+              <div class="pipeline-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect x="6" y="6" width="20" height="24" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="M10 12H22M10 16H22M10 20H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="pipeline-label">Report</span>
+              <span class="pipeline-desc">Personalized Report</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Team Section ========== -->
+    <section class="section team-section" id="team">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <h2 class="section-title">Our Team</h2>
+          <p class="section-desc">A passionate student team dedicated to revolutionizing sleep health through technology and innovation</p>
+        </div>
+        
+        <div class="team-grid">
+          <article class="team-card animate-on-scroll" data-member="noah">
+            <div class="team-avatar-wrapper">
+              <img src="assets/Noah.webp" alt="Noah Huang" class="team-avatar" loading="lazy">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Noah Huang</h3>
+              <p class="team-role">No.2 High School of ECNU, STEM Lead</p>
+              <p class="team-bio"></p>
+            </div>
+          </article>
+          
+          <article class="team-card animate-on-scroll" data-member="alex">
+            <div class="team-avatar-wrapper">
+              <img src="assets/Alex.webp" alt="Alex Zhou" class="team-avatar" loading="lazy">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Alex Zhou</h3>
+              <p class="team-role">No.2 High School of ECNU, Video Lead</p>
+              <p class="team-bio"></p>
+            </div>
+          </article>
+          
+          <article class="team-card animate-on-scroll" data-member="jackie">
+            <div class="team-avatar-wrapper">
+              <img src="assets/Jackie.webp" alt="Jackie Lin" class="team-avatar" loading="lazy">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Jackie Lin</h3>
+              <p class="team-role">No.2 High School of ECNU, Story & Info Lead</p>
+              <p class="team-bio"></p>
+            </div>
+          </article>
+          
+          <article class="team-card animate-on-scroll" data-member="rimon">
+            <div class="team-avatar-wrapper">
+              <img src="assets/Rimon.webp" alt="Rimon" class="team-avatar" loading="lazy">
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">Rimon</h3>
+              <p class="team-role">Product & Delivery Lead</p>
+              <p class="team-bio"></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Charity Section ========== -->
+    <section class="section charity-section" id="charity">
+      <div class="container">
+        <div class="charity-content">
+          <div class="charity-text animate-on-scroll">
+            <div class="section-header">
+              <h2 class="section-title">Sleep for Good Initiative</h2>
+              <p class="section-desc">
+                Over 30% of the global population suffers from sleep disorders. We believe quality sleep should not be a luxury.
+                SomniSpectra's charity program provides free sleep health screening and improvement services for youth, insomnia patients, and underserved communities.
+              </p>
+            </div>
+            
+            <div class="charity-projects">
+              <div class="charity-project" data-charity="youth">
+                <div class="charity-icon">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 42C12 34 17 28 24 28C31 28 36 34 36 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M32 10L38 4M38 10L32 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="charity-project-content">
+                  <h4>Youth Sleep Guardian</h4>
+                  <p>Providing free sleep monitoring devices to 100 schools, helping youth develop healthy sleep habits</p>
+                </div>
+              </div>
+              
+              <div class="charity-project" data-charity="insomnia">
+                <div class="charity-icon">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/>
+                    <path d="M24 14V24L30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M8 8L12 12M40 8L36 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="charity-project-content">
+                  <h4>Insomnia Relief Action</h4>
+                  <p>Partnering with top hospitals to provide free treatment and devices for 5,000 chronic insomnia patients</p>
+                </div>
+              </div>
+              
+              <div class="charity-project" data-charity="community">
+                <div class="charity-icon">
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M24 4L44 14V34L24 44L4 34V14L24 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <path d="M24 24L44 14M24 24L4 14M24 24V44" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </div>
+                <div class="charity-project-content">
+                  <h4>Community Health Screening</h4>
+                  <p>Conducting free sleep health screenings in 200 communities with professional consultation services</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="charity-cta">
+              <a href="#contact" class="btn btn-primary btn-large">Become a Partner</a>
+              <a href="#contact" class="btn btn-secondary btn-large">Donate</a>
+            </div>
+          </div>
+          
+          <div class="charity-visual animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Charity Activities" class="charity-image" loading="lazy">
+            <div class="charity-stats">
+              <div class="stat-item">
+                <span class="stat-number">50,000+</span>
+                <span class="stat-label">People Helped</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">200+</span>
+                <span class="stat-label">Partner Organizations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer / Contact Section ========== -->
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-main animate-on-scroll">
+        <a href="#home" class="footer-logo">
+          <img src="assets/ss.webp" alt="SomniSpectra" class="logo-icon">
+          <span>SomniSpectra</span>
+        </a>
+        <p class="footer-desc">Combining technology and care, enabling quality sleep for everyone</p>
+        
+        <div class="footer-contact">
+          <a href="mailto:hello@somnispectra.com" class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 6L12 13L2 6"/>
+            </svg>
+            hello@somnispectra.com
+          </a>
+        </div>
+        
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="copyright">© 2025 SomniSpectra. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== Modal ========== -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-content">
+        <div class="modal-image-wrapper">
+          <img class="modal-image" src="" alt="" id="modalImage">
+        </div>
+        <div class="modal-body">
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <p class="modal-description" id="modalDescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Toast ========== -->
+  <div class="toast" id="toast" aria-live="polite">
+    <div class="toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="20,6 9,17 4,12"></polyline>
+      </svg>
+    </div>
+    <span class="toast-message" id="toastMessage">Submitted successfully!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
