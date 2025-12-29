@@ -201,17 +201,37 @@
     navbar: null,
     navLinks: null,
     sections: null,
+    indicator: null,
+    isScrollingByClick: false,
+    scrollEndTimeout: null,
+    safetyTimeout: null,
 
     init() {
       this.navbar = $('#navbar');
       this.navLinks = $$('.nav-link');
       this.sections = $$('section[id], footer[id]');
+      this.indicator = $('#navIndicator');
 
       // Scroll handler for navbar background
       window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
       
+      // Resize handler for indicator position
+      window.addEventListener('resize', () => this.updateIndicator(), { passive: true });
+      
+      // Block user scroll during click-triggered scroll
+      this.blockScrollHandler = (e) => {
+        if (this.isScrollingByClick) {
+          e.preventDefault();
+        }
+      };
+      window.addEventListener('wheel', this.blockScrollHandler, { passive: false });
+      window.addEventListener('touchmove', this.blockScrollHandler, { passive: false });
+      
       // Initial check
       this.handleScroll();
+      
+      // Update indicator after layout settles
+      setTimeout(() => this.updateIndicator(), 100);
 
       // Smooth scroll for anchor links
       $$('a[href^="#"]').forEach(anchor => {
@@ -222,14 +242,58 @@
             const target = $(href);
             if (target) {
               const offsetTop = target.offsetTop - 80;
-              window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-              });
+              const currentScrollY = window.scrollY;
+              const scrollDistance = Math.abs(currentScrollY - offsetTop);
+              
+              // Check if already at target position (within 50px tolerance)
+              const isAlreadyAtTarget = scrollDistance < 50;
+              
+              // Find and activate the corresponding nav link
+              const targetNavLink = $(`.nav-link[href="${href}"]`);
+              if (targetNavLink) {
+                this.navLinks.forEach(link => link.classList.remove('active'));
+                targetNavLink.classList.add('active');
+                this.updateIndicator();
+              }
+              
+              // Only lock if actually need to scroll a significant distance
+              if (!isAlreadyAtTarget) {
+                this.isScrollingByClick = true;
+                
+                // Safety timeout: unlock after max expected scroll duration
+                // Based on scroll distance, estimate max duration (roughly 1ms per pixel + 500ms buffer)
+                const maxDuration = Math.min(Math.max(scrollDistance, 300), 1500);
+                clearTimeout(this.safetyTimeout);
+                this.safetyTimeout = setTimeout(() => {
+                  this.isScrollingByClick = false;
+                }, maxDuration);
+                
+                window.scrollTo({
+                  top: offsetTop,
+                  behavior: 'smooth'
+                });
+              }
             }
           }
         });
       });
+    },
+
+    updateIndicator() {
+      const activeLink = $('.nav-link.active');
+      if (!activeLink || !this.indicator) return;
+
+      const navMenu = $('#navMenu');
+      if (!navMenu) return;
+
+      const menuRect = navMenu.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      
+      const left = linkRect.left - menuRect.left;
+      const width = linkRect.width;
+      
+      this.indicator.style.left = `${left}px`;
+      this.indicator.style.width = `${width}px`;
     },
 
     handleScroll() {
@@ -242,24 +306,55 @@
         this.navbar?.classList.remove('scrolled');
       }
 
+      // Detect scroll end and unlock indicator updates
+      if (this.isScrollingByClick) {
+        clearTimeout(this.scrollEndTimeout);
+        this.scrollEndTimeout = setTimeout(() => {
+          this.isScrollingByClick = false;
+          clearTimeout(this.safetyTimeout); // Clear safety timeout when scroll ends normally
+        }, 150);
+        return;
+      }
+
+      // Check if at page bottom (for small footer)
+      const isAtBottom = (window.innerHeight + scrollY) >= (document.documentElement.scrollHeight - 50);
+
       // Active section highlighting
       let currentSection = '';
       
-      this.sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
-        const sectionHeight = section.offsetHeight;
-        
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          currentSection = section.getAttribute('id');
-        }
-      });
+      if (isAtBottom) {
+        // If at bottom, highlight contact/footer
+        currentSection = 'contact';
+      } else {
+        this.sections.forEach(section => {
+          const sectionTop = section.offsetTop - 150;
+          const sectionHeight = section.offsetHeight;
+          
+          if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+          }
+        });
+      }
 
+      let activeChanged = false;
       this.navLinks.forEach(link => {
+        const wasActive = link.classList.contains('active');
+        const shouldBeActive = link.getAttribute('href') === `#${currentSection}`;
+        
+        if (wasActive !== shouldBeActive) {
+          activeChanged = true;
+        }
+        
         link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
+        if (shouldBeActive) {
           link.classList.add('active');
         }
       });
+
+      // Update indicator only when active section changes
+      if (activeChanged) {
+        this.updateIndicator();
+      }
     }
   };
 
@@ -281,55 +376,55 @@
       // Products
       pillow: {
         image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=1200&q=80',
-        title: 'Smart Pillow · Core',
+        title: 'Smart Pillow',
         description: 'The Smart Pillow combines dual microphones, a pressure sensor matrix, and an IMU to capture sleep-relevant signals at the point of contact. It detects posture and head–neck support changes through pressure distribution, identifies turning and micro-movements via inertial sensing, and records breathing- and snoring-related acoustic patterns for event evidence and temporal correlation.\n\nKey Technical Features:\n• Dual microphones for snoring and breathing-event evidence\n• Pressure matrix for posture and pressure-distribution tracking\n• IMU for turning detection and motion timing alignment'
       },
       wristband: {
-        image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=1200&q=80',
-        title: 'Wristband · Plus',
+        image: 'assets/wristband.webp',
+        title: 'Wristband',
         description: 'The Wristband provides continuous physiological monitoring using heart-rate and blood-oxygen sensing, combined with an IMU for activity context. It supports overnight trend tracking of cardiovascular dynamics and enables robust differentiation between sleep, wake, and movement-related artifacts through synchronized motion signals.\n\nKey Technical Features:\n• Heart-rate monitoring for overnight cardiovascular trends\n• SpO₂ sensing to support respiration-related screening signals\n• IMU for activity context and artifact reduction'
       },
       eyemask: {
         image: 'https://images.unsplash.com/photo-1519003300449-424ad0405076?w=1200&q=80',
-        title: 'EEG Eye Mask · Pro',
+        title: 'EEG Eye Mask',
         description: 'The EEG Eye Mask captures brain electrical activity to support objective sleep-stage inference. By providing neurophysiological evidence that complements peripheral signals, it strengthens interpretability for sleep architecture analysis, including transitions between stages and the continuity of restorative sleep periods.\n\nKey Technical Features:\n• EEG acquisition for objective neurophysiological evidence\n• Sleep-stage inference support for sleep architecture analysis\n• Complements peripheral signals for stronger interpretability'
       },
       // Team members
       noah: {
         image: 'assets/Noah.webp',
-        title: 'Noah Huang · STEM Lead',
+        title: 'Noah Huang',
         description: 'Noah Huang is the founder and CEO of SomniSpectra.\n\nWithin SleepSpectra, Noah leads STEM development end-to-end—from hardware prototyping to software implementation. He is responsible for building and integrating the three-device setup, establishing reliable data acquisition and synchronization, and developing the app workflow for signal visualization, AI-driven analysis, and reporting.\n\nGood sleep, in Noah\'s view, should not be treated as a score to chase, but as a system that can be understood, measured, and continuously improved.'
       },
       alex: {
         image: 'assets/Alex.webp',
-        title: 'Alex Zhou · Video Lead',
+        title: 'Alex Zhou',
         description: 'Alex Zhou serves as the team\'s Chief Content Officer (CCO). In this project, he focuses on developing the team\'s core innovation ideas and shaping how they are communicated to both judges and broader audiences.\n\nHe is responsible for scriptwriting, presentation structure, and the overall narrative logic, ensuring that complex technical concepts are expressed with clarity, accuracy, and persuasion. He also leads the planning and coordination of the project video, aligning content flow, visual rhythm, and scene arrangement so that the final delivery is coherent, engaging, and memorable.\n\nAlex approaches communication as an extension of research itself, where ideas are assessed not only by technical soundness, but also by whether they can be articulated precisely and understood reliably. Through this lens, he helps the team present its work with both academic rigor and effective public-facing expression.'
       },
       jackie: {
         image: 'assets/Jackie.webp',
-        title: 'Jackie Lin · Story & Information Lead',
+        title: 'Jackie Lin',
         description: 'Jackie Lin serves as the team\'s Chief Information Officer (CIO). In this project, he is responsible for structuring the project\'s information framework and transforming raw data and ideas into a compelling, well-supported narrative.\n\nHis work encompasses scriptwriting, data research and analysis, resource integration, and the logical sequencing of the promotional video. He also contributes his voice for part of the voiceover and appears as an actor in the project\'s mini-drama, helping ensure the team\'s message is delivered with both clarity and creative impact.\n\nFor Jackie, organizing information is a strategic process: it is not simply about collecting data, but about designing how knowledge is accessed, understood, and remembered. By weaving together research, narrative, and multimedia elements, he helps the team present complex work with both intellectual rigor and engaging public appeal.'
       },
       rimon: {
         image: 'assets/Rimon.webp',
-        title: 'Rimon · Product & Delivery Lead',
+        title: 'Rimon',
         description: 'Rimon serves as the team\'s Chief Product Officer (CPO). In SomniSpectra, he supports the definition and refinement of the product\'s overall direction, helping align what the system delivers with how users will experience and understand it.\n\nHe contributes to the project\'s final presentation through video editing and selected written materials, focusing on cohesion, pacing, and clarity across the team\'s outputs. Through iterative adjustments and review, he helps ensure that the project is communicated in a consistent, polished, and audience-appropriate manner.'
       },
-      // Charity projects
-      youth: {
-        image: 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&q=80',
-        title: 'Youth Sleep Guardian Program',
-        description: 'Youth sleep problems are becoming increasingly severe, with over 60% of high school students sleeping less than 7 hours per night. Sleep deprivation affects learning ability, emotional stability, and physical development.\n\nOur Youth Sleep Guardian Program aims to:\n• Provide free smart sleep monitoring devices to 100 schools\n• Conduct sleep health education seminars reaching 50,000+ students\n• Build student sleep databases to inform education policy\n• Train school nurses and counselors to identify student sleep issues\n\nWe have established partnerships with 35 schools in major cities.'
+      // Charity programs
+      sponsorship: {
+        image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80',
+        title: 'Sleep Essentials Sponsorship',
+        description: 'For each SomniSpectra kit sold, we allocate a fixed contribution in the purchaser\'s name to support a "sleep essentials" package for students in under-resourced communities.\n\nThe package prioritizes simple, evidence-informed materials such as:\n• A sleep journal booklet\n• A basic sleep-hygiene guide\n• Low-cost items that help reduce common nighttime distractions\n\nDistribution is coordinated through partner schools or youth organizations to ensure transparent delivery and consistent documentation.'
       },
-      insomnia: {
-        image: 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?w=1200&q=80',
-        title: 'Insomnia Relief Action',
-        description: 'Chronic insomnia affects 10% of the global adult population, yet fewer than 30% of patients receive proper treatment. High medical costs and limited healthcare resources are major barriers.\n\nOur Insomnia Relief Action includes:\n• Partnerships with 50+ top-tier hospital sleep centers\n• Free devices and treatment for 5,000 chronic insomnia patients\n• Remote sleep monitoring platform to reduce follow-up costs\n• AI-based Cognitive Behavioral Therapy for Insomnia (CBT-I) programs\n\nWe believe technology can bring quality healthcare to everyone who needs it.'
+      workshop: {
+        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80',
+        title: 'School Sleep Education Workshops',
+        description: 'We provide a structured, school-ready workshop that explains sleep fundamentals in a scientifically accurate and accessible way.\n\nTopics include:\n• Circadian rhythm basics\n• The impact of light and screens\n• Stress and recovery\n• Common warning signs of persistent sleep disruption\n\nWhen appropriate, we introduce the idea of multi-signal monitoring at a conceptual level—without collecting personal data—so students learn to interpret sleep information responsibly rather than chasing a single score.'
       },
-      community: {
-        image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1200&q=80',
-        title: 'Community Health Screening Project',
-        description: 'Sleep disorders are often early warning signs of other health problems – for example, sleep apnea can lead to cardiovascular disease. However, many people are unaware they have sleep issues.\n\nOur Community Health Screening Project:\n• Establishes free screening points in 200 communities nationwide\n• Provides professional sleep health assessments and consultations\n• Identifies high-risk individuals and refers them to medical institutions\n• Builds community sleep health records for long-term improvement tracking\n\nThe project has covered 15 cities, completed 30,000+ screenings, and identified 2,000+ cases requiring intervention.'
+      screening: {
+        image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80',
+        title: 'Community Screening Support',
+        description: 'In collaboration with local partners, we support non-diagnostic screening and early-risk awareness through short, standardized questionnaires and guided interpretation.\n\nThe objective is to:\n• Reduce barriers to early attention\n• Help individuals understand when professional support may be appropriate\n• Establish clear referral pathways to school counselors, community clinics, or sleep centers\n\nWhere feasible, we work with partners to ensure follow-up support is accessible and well-documented.'
       }
     },
 
@@ -380,10 +475,10 @@
         });
       });
 
-      // Bind to charity projects
-      $$('.charity-project').forEach(project => {
-        project.addEventListener('click', () => {
-          const key = project.dataset.charity;
+      // Bind to charity program cards
+      $$('.program-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const key = card.dataset.charity;
           if (key && this.content[key]) {
             this.open(this.content[key]);
           }
