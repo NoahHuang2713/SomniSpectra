@@ -1547,6 +1547,10 @@ ul, ol {
     width: 100%;
   }
   
+  .carousel-btn {
+    display: none;
+  }
+  
   .charity-cta {
     flex-direction: column;
   }
@@ -1564,6 +1568,8 @@ ul, ol {
     height: 200px;
   }
 }
+
+
 
 
 
