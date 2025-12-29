@@ -50,6 +50,7 @@
         <a href="#team" class="nav-link">Team</a>
         <a href="#charity" class="nav-link">Charity</a>
         <a href="#contact" class="nav-link">Contact</a>
+        <span class="nav-indicator" id="navIndicator"></span>
       </nav>
       
       <a href="#contact" class="btn btn-primary nav-cta">Get Demo</a>
@@ -160,7 +161,7 @@
           <!-- Product Card 2 -->
           <article class="product-card animate-on-scroll" data-product="wristband">
             <div class="product-image-wrapper">
-              <img src="https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=800&q=80" alt="Wristband" class="product-image" loading="lazy">
+              <img src="assets/wristband.webp" alt="Wristband" class="product-image" loading="lazy">
               <div class="product-badge new">Plus</div>
             </div>
             <div class="product-content">
@@ -376,78 +377,106 @@
     <!-- ========== Charity Section ========== -->
     <section class="section charity-section" id="charity">
       <div class="container">
-        <div class="charity-content">
-          <div class="charity-text animate-on-scroll">
-            <div class="section-header">
-              <h2 class="section-title">Sleep for Good Initiative</h2>
-              <p class="section-desc">
-                Over 30% of the global population suffers from sleep disorders. We believe quality sleep should not be a luxury.
-                SomniSpectra's charity program provides free sleep health screening and improvement services for youth, insomnia patients, and underserved communities.
-              </p>
+        <div class="section-header animate-on-scroll">
+          <h2 class="section-title">Sleep for Good</h2>
+          <p class="section-desc">Practical, verifiable charity initiatives designed for schools and community partners</p>
+        </div>
+        
+        <!-- Programs Grid -->
+        <div class="programs-grid">
+          <article class="program-card animate-on-scroll" data-charity="sponsorship">
+            <div class="program-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80" alt="Sleep Essentials Sponsorship" class="program-image" loading="lazy">
             </div>
-            
-            <div class="charity-projects">
-              <div class="charity-project" data-charity="youth">
-                <div class="charity-icon">
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 42C12 34 17 28 24 28C31 28 36 34 36 42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M32 10L38 4M38 10L32 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="charity-project-content">
-                  <h4>Youth Sleep Guardian</h4>
-                  <p>Providing free sleep monitoring devices to 100 schools, helping youth develop healthy sleep habits</p>
-                </div>
-              </div>
-              
-              <div class="charity-project" data-charity="insomnia">
-                <div class="charity-icon">
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/>
-                    <path d="M24 14V24L30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 8L12 12M40 8L36 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div class="charity-project-content">
-                  <h4>Insomnia Relief Action</h4>
-                  <p>Partnering with top hospitals to provide free treatment and devices for 5,000 chronic insomnia patients</p>
-                </div>
-              </div>
-              
-              <div class="charity-project" data-charity="community">
-                <div class="charity-icon">
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <path d="M24 4L44 14V34L24 44L4 34V14L24 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M24 24L44 14M24 24L4 14M24 24V44" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                </div>
-                <div class="charity-project-content">
-                  <h4>Community Health Screening</h4>
-                  <p>Conducting free sleep health screenings in 200 communities with professional consultation services</p>
-                </div>
-              </div>
+            <div class="program-content">
+              <h3 class="program-title">Sleep Essentials Sponsorship</h3>
+              <p class="program-desc">For each kit sold, we sponsor a sleep essentials package for students in under-resourced communities.</p>
+              <button class="btn btn-outline program-btn">Learn More</button>
             </div>
-            
-            <div class="charity-cta">
-              <a href="#contact" class="btn btn-primary btn-large">Become a Partner</a>
-              <a href="#contact" class="btn btn-secondary btn-large">Donate</a>
-            </div>
-          </div>
+          </article>
           
-          <div class="charity-visual animate-on-scroll">
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80" alt="Charity Activities" class="charity-image" loading="lazy">
-            <div class="charity-stats">
-              <div class="stat-item">
-                <span class="stat-number">50,000+</span>
-                <span class="stat-label">People Helped</span>
+          <article class="program-card animate-on-scroll" data-charity="workshop">
+            <div class="program-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80" alt="School Sleep Education Workshops" class="program-image" loading="lazy">
+            </div>
+            <div class="program-content">
+              <h3 class="program-title">School Sleep Education</h3>
+              <p class="program-desc">Structured workshops explaining sleep fundamentals in a scientifically accurate and accessible way.</p>
+              <button class="btn btn-outline program-btn">Learn More</button>
+            </div>
+          </article>
+          
+          <article class="program-card animate-on-scroll" data-charity="screening">
+            <div class="program-image-wrapper">
+              <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80" alt="Community Screening Support" class="program-image" loading="lazy">
+            </div>
+            <div class="program-content">
+              <h3 class="program-title">Community Screening Support</h3>
+              <p class="program-desc">Non-diagnostic screening and early-risk awareness with clear referral pathways to professionals.</p>
+              <button class="btn btn-outline program-btn">Learn More</button>
+            </div>
+          </article>
+        </div>
+        
+        <!-- Impact Metrics -->
+        <div class="impact-section animate-on-scroll">
+          <h3 class="impact-title">Year 1 Targets</h3>
+          <div class="impact-pipeline">
+            <div class="impact-step">
+              <div class="impact-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <circle cx="16" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                  <path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="25" cy="10" r="3" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+                  <circle cx="7" cy="10" r="3" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+                </svg>
               </div>
-              <div class="stat-item">
-                <span class="stat-number">200+</span>
-                <span class="stat-label">Partner Organizations</span>
+              <span class="impact-number">10,000+</span>
+              <span class="impact-label">Students Reached</span>
+              <span class="impact-desc">Through sleep education and school-based outreach</span>
+            </div>
+            <div class="impact-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="impact-step">
+              <div class="impact-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <rect x="6" y="8" width="8" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <rect x="18" y="8" width="8" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="M14 14H18M14 18H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
               </div>
+              <span class="impact-number">120+</span>
+              <span class="impact-label">Partner Organizations</span>
+              <span class="impact-desc">Schools and community partners engaged</span>
+            </div>
+            <div class="impact-arrow">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="impact-step">
+              <div class="impact-icon">
+                <svg viewBox="0 0 32 32" fill="none">
+                  <path d="M16 6L20 12H12L16 6Z" fill="currentColor" opacity="0.5"/>
+                  <rect x="8" y="14" width="16" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 20H20M12 24H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="impact-number">25,000+</span>
+              <span class="impact-label">Items Sponsored</span>
+              <span class="impact-desc">Sleep-essential items distributed</span>
             </div>
           </div>
+          <p class="impact-note">Verified through program records and partner confirmations</p>
+        </div>
+        
+        <!-- CTA -->
+        <div class="charity-cta animate-on-scroll">
+          <a href="#contact" class="btn btn-primary btn-large">Become a Partner</a>
+          <a href="#contact" class="btn btn-secondary btn-large">Support Our Mission</a>
         </div>
       </div>
     </section>
@@ -541,3 +570,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
