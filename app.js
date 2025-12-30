@@ -108,6 +108,76 @@
     }
   };
 
+  // ==================== Hero Product Stack Module ====================
+  const HeroProductStack = {
+    slides: null,
+    currentIndex: 0,
+    autoplayInterval: null,
+    autoplayDelay: 3000,
+
+    init() {
+      this.slides = $$('.hero-product-slide');
+      if (this.slides.length === 0) return;
+
+      this.updateSlides();
+      this.startAutoplay();
+
+      // Click to navigate
+      this.slides.forEach((slide, index) => {
+        slide.addEventListener('click', () => {
+          this.goTo(index);
+        });
+      });
+
+      // Pause on hover
+      const stack = $('.hero-product-stack');
+      if (stack) {
+        stack.addEventListener('mouseenter', () => this.pauseAutoplay());
+        stack.addEventListener('mouseleave', () => this.startAutoplay());
+      }
+    },
+
+    goTo(index) {
+      if (index === this.currentIndex) return;
+      this.pauseAutoplay();
+      this.currentIndex = index;
+      this.updateSlides();
+      this.startAutoplay();
+    },
+
+    updateSlides() {
+      const total = this.slides.length;
+      this.slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'prev', 'next');
+        
+        if (index === this.currentIndex) {
+          slide.classList.add('active');
+        } else if (index === (this.currentIndex - 1 + total) % total) {
+          slide.classList.add('prev');
+        } else if (index === (this.currentIndex + 1) % total) {
+          slide.classList.add('next');
+        }
+      });
+    },
+
+    next() {
+      this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+      this.updateSlides();
+    },
+
+    startAutoplay() {
+      this.pauseAutoplay();
+      this.autoplayInterval = setInterval(() => this.next(), this.autoplayDelay);
+    },
+
+    pauseAutoplay() {
+      if (this.autoplayInterval) {
+        clearInterval(this.autoplayInterval);
+        this.autoplayInterval = null;
+      }
+    }
+  };
+
   // ==================== Mobile Menu Module ====================
   const MobileMenu = {
     hamburger: null,
@@ -375,7 +445,7 @@
     content: {
       // Products
       pillow: {
-        image: 'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=1200&q=80',
+        image: 'assets/pillow.webp',
         title: 'Smart Pillow',
         description: 'The Smart Pillow combines dual microphones, a pressure sensor matrix, and an IMU to capture sleep-relevant signals at the point of contact. It detects posture and head–neck support changes through pressure distribution, identifies turning and micro-movements via inertial sensing, and records breathing- and snoring-related acoustic patterns for event evidence and temporal correlation.\n\nKey Technical Features:\n• Dual microphones for snoring and breathing-event evidence\n• Pressure matrix for posture and pressure-distribution tracking\n• IMU for turning detection and motion timing alignment'
       },
@@ -385,7 +455,7 @@
         description: 'The Wristband provides continuous physiological monitoring using heart-rate and blood-oxygen sensing, combined with an IMU for activity context. It supports overnight trend tracking of cardiovascular dynamics and enables robust differentiation between sleep, wake, and movement-related artifacts through synchronized motion signals.\n\nKey Technical Features:\n• Heart-rate monitoring for overnight cardiovascular trends\n• SpO₂ sensing to support respiration-related screening signals\n• IMU for activity context and artifact reduction'
       },
       eyemask: {
-        image: 'https://images.unsplash.com/photo-1519003300449-424ad0405076?w=1200&q=80',
+        image: 'assets/Eyemask.webp',
         title: 'EEG Eye Mask',
         description: 'The EEG Eye Mask captures brain electrical activity to support objective sleep-stage inference. By providing neurophysiological evidence that complements peripheral signals, it strengthens interpretability for sleep architecture analysis, including transitions between stages and the continuity of restorative sleep periods.\n\nKey Technical Features:\n• EEG acquisition for objective neurophysiological evidence\n• Sleep-stage inference support for sleep architecture analysis\n• Complements peripheral signals for stronger interpretability'
       },
@@ -407,8 +477,8 @@
       },
       rimon: {
         image: 'assets/Rimon.webp',
-        title: 'Rimon',
-        description: 'Rimon serves as the team\'s Chief Product Officer (CPO). In SomniSpectra, he supports the definition and refinement of the product\'s overall direction, helping align what the system delivers with how users will experience and understand it.\n\nHe contributes to the project\'s final presentation through video editing and selected written materials, focusing on cohesion, pacing, and clarity across the team\'s outputs. Through iterative adjustments and review, he helps ensure that the project is communicated in a consistent, polished, and audience-appropriate manner.'
+        title: 'Rimon Zhao',
+        description: 'Rimon Zhao serves as the team\'s Chief Product Officer (CPO). In SomniSpectra, he supports the definition and refinement of the product\'s overall direction, helping align what the system delivers with how users will experience and understand it.\n\nHe contributes to the project\'s final presentation through video editing and selected written materials, focusing on cohesion, pacing, and clarity across the team\'s outputs. Through iterative adjustments and review, he helps ensure that the project is communicated in a consistent, polished, and audience-appropriate manner.'
       },
       // Charity programs
       sponsorship: {
@@ -580,6 +650,7 @@
   // ==================== Initialize ====================
   document.addEventListener('DOMContentLoaded', () => {
     Carousel.init();
+    HeroProductStack.init();
     MobileMenu.init();
     ScrollAnimations.init();
     Navigation.init();
@@ -594,3 +665,4 @@
   });
 
 })();
+
