@@ -478,21 +478,21 @@
       rimon: {
         image: 'assets/Rimon.webp',
         title: 'Rimon Zhao',
-        description: 'Rimon Zhao serves as the team\'s Chief Product Officer (CPO). In SomniSpectra, he supports the definition and refinement of the product\'s overall direction, helping align what the system delivers with how users will experience and understand it.\n\nHe contributes to the project\'s final presentation through video editing and selected written materials, focusing on cohesion, pacing, and clarity across the team\'s outputs. Through iterative adjustments and review, he helps ensure that the project is communicated in a consistent, polished, and audience-appropriate manner.'
+        description: 'Rimon Zhao serves as the team\'s Chief Product Officer (CPO). In this project, he supports product-level planning and presentation delivery, helping align what the system does with how it is experienced and understood by an audience.\n\nFor Rimon, video editing is not simply a technical task, but a core part of how ideas are shaped and communicated. By carefully refining structure, pacing, and visual flow, he helps transform the team\'s work into a coherent and engaging narrative. Through close attention to detail and repeated iteration, he ensures that the final cut remains accurate to the project\'s intent while maintaining clarity and consistency across the team\'s outputs.'
       },
       // Charity programs
       sponsorship: {
-        image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80',
+        image: 'assets/charity-sponsorship.webp',
         title: 'Sleep Essentials Sponsorship',
         description: 'For each SomniSpectra kit sold, we allocate a fixed contribution in the purchaser\'s name to support a "sleep essentials" package for students in under-resourced communities.\n\nThe package prioritizes simple, evidence-informed materials such as:\n• A sleep journal booklet\n• A basic sleep-hygiene guide\n• Low-cost items that help reduce common nighttime distractions\n\nDistribution is coordinated through partner schools or youth organizations to ensure transparent delivery and consistent documentation.'
       },
       workshop: {
-        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80',
+        image: 'assets/charity-workshop.webp',
         title: 'School Sleep Education Workshops',
         description: 'We provide a structured, school-ready workshop that explains sleep fundamentals in a scientifically accurate and accessible way.\n\nTopics include:\n• Circadian rhythm basics\n• The impact of light and screens\n• Stress and recovery\n• Common warning signs of persistent sleep disruption\n\nWhen appropriate, we introduce the idea of multi-signal monitoring at a conceptual level—without collecting personal data—so students learn to interpret sleep information responsibly rather than chasing a single score.'
       },
       screening: {
-        image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80',
+        image: 'assets/charity-screening.webp',
         title: 'Community Screening Support',
         description: 'In collaboration with local partners, we support non-diagnostic screening and early-risk awareness through short, standardized questionnaires and guided interpretation.\n\nThe objective is to:\n• Reduce barriers to early attention\n• Help individuals understand when professional support may be appropriate\n• Establish clear referral pathways to school counselors, community clinics, or sleep centers\n\nWhere feasible, we work with partners to ensure follow-up support is accessible and well-documented.'
       }
@@ -665,4 +665,5 @@
   });
 
 })();
+
 
