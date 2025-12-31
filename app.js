@@ -596,11 +596,9 @@
   };
 
   // ==================== Video Module ====================
-  // Video module disabled - now using external Bilibili link
   const Video = {
     init() {
-      // Video now links to external Bilibili page
-      // No JavaScript needed for playback
+      // Video is now an external link to Bilibili - no additional JavaScript needed
     }
   };
 
@@ -649,6 +647,7 @@
   });
 
 })();
+
 
 
 
