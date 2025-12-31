@@ -768,31 +768,23 @@ ul, ol {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all var(--transition-base);
 }
 
 .video-link {
-  display: block;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  text-decoration: none;
 }
 
 .video-link:hover {
-  transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
 }
 
-.product-video {
+.video-poster {
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: contain;
   background: white;
-}
-
-.product-video-poster {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
 }
 
 .video-overlay {
@@ -801,29 +793,30 @@ ul, ol {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
+  background: rgba(0, 0, 0, 0.02);
   transition: all var(--transition-base);
 }
 
-.video-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+.video-link:hover .video-overlay {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .video-play-btn {
-  width: 80px;
-  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform var(--transition-base);
 }
 
-.video-overlay:hover .video-play-btn {
-  transform: scale(1.1);
+.video-link:hover .video-play-btn {
+  transform: scale(1.08);
 }
 
 .video-play-btn svg {
-  width: 100%;
-  height: 100%;
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
 }
 
 .video-info h3 {
@@ -1718,6 +1711,8 @@ ul, ol {
     height: 200px;
   }
 }
+
+
 
 
 
