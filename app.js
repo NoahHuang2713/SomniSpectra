@@ -596,27 +596,11 @@
   };
 
   // ==================== Video Module ====================
+  // Video module disabled - now using external Bilibili link
   const Video = {
     init() {
-      const overlay = $('#videoOverlay');
-      const video = $('.product-video');
-
-      if (!overlay || !video) return;
-
-      overlay.addEventListener('click', () => {
-        overlay.classList.add('hidden');
-        video.play();
-      });
-
-      video.addEventListener('pause', () => {
-        if (video.currentTime === 0 || video.ended) {
-          overlay.classList.remove('hidden');
-        }
-      });
-
-      video.addEventListener('ended', () => {
-        overlay.classList.remove('hidden');
-      });
+      // Video now links to external Bilibili page
+      // No JavaScript needed for playback
     }
   };
 
@@ -665,5 +649,6 @@
   });
 
 })();
+
 
 
